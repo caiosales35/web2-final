@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Footer } from '../../components/footer'
+import { UserList } from '../../components/userList'
 import { userEndPoint } from '../../constants'
 import '../../styles/main.css'
-import { montarCardsUsuarios } from './utils'
 
 export const ListUser = () => {
     const [usuarios, setUsuarios ] = useState()
@@ -12,6 +12,22 @@ export const ListUser = () => {
         fetch(userEndPoint)
         .then((resposta) => resposta.json())
         .then((jsonResposta) =>  setUsuarios(jsonResposta));
+    }
+
+    const excluirUsuario = (id) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('DELETE', `${userEndPoint}/${id}`, true)
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert('Usuario excluido!')
+                document.location.reload(true);
+            } else if (xhr.readyState === 4 && xhr.status !== 200){
+                console.error(xhr.responseText)
+                alert('Erro ao deleter...')
+            }
+        }
+        xhr.send();
     }
 
     useEffect(() => {
@@ -26,14 +42,8 @@ export const ListUser = () => {
                     <p id="subtitle" >Listagem de usuários cadastrados</p>
                     <Link to="/user/new" >Novo</Link>
                 </div>
-                
-                {/* verificar funcao de excluir
-                    provavelmente nao funcione assim.
-                    criar um componente para os cards
-                    e passar a funcao pra ele
-                */}
                 <div class="cardList" id="rootDiv">
-                    {usuarios && montarCardsUsuarios(usuarios)}
+                    {usuarios && <UserList usuarios={usuarios} onDelete={excluirUsuario}/>}
                 </div>
             </main>
             <br />
