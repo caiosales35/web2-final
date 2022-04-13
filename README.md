@@ -27,7 +27,7 @@ Páginas em React desenvolvidas durante a disciplina de desenvolvimento web 2, d
 ## Instruções para rodar o projeto:
 
 - `npm start`
-- Certifique-se de estar com a API rodando (API Receitas Spring Boot).
+- Certifique-se de estar com a API rodando [API Imobiliarias Spring Boot](https://github.com/caiosales35/Rest-API-Spring-Boot).
 - Certifique-se de ter todas as dependencias instaladas.
 - Cheque o arquivo `App.js`, para uma melhor visualização das rotas disponiveis.
 
